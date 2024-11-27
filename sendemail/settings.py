@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from datetime import timedelta
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,15 +80,20 @@ WSGI_APPLICATION = 'sendemail.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django_tenants.postgresql_backend',  
+#         'NAME': 'sendemail',  
+#         'USER': 'alumno', 
+#         'PASSWORD': '123456',  
+#         'HOST': 'localhost',  
+#         'PORT': '5432',  
+#     },
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',  
-        'NAME': 'sendemail',  
-        'USER': 'alumno', 
-        'PASSWORD': '123456',  
-        'HOST': 'localhost',  
-        'PORT': '5432',  
-    },
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+
 }
 
 
@@ -134,6 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
