@@ -72,11 +72,9 @@ class EmailsDataAdmin(admin.ModelAdmin):
             recipient_email = email_data.email
 
             # Personalizar el mensaje y asunto
-            personalized_subject = f"{subject}, {recipient_name}!"
+            personalized_subject = f"{subject}"
             personalized_message = (
-                f"Hola {recipient_name},\n\n"
                 f"{message_template}\n\n"
-                f"Saludos cordiales,\n{name_account}"
             )
 
             # Construir el correo
