@@ -21,7 +21,7 @@ class ExcelUploadForm(forms.Form):
 class EmailsDataAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'group')
     list_filter = ('group',)
-    list_per_page = 100
+    list_per_page = 94
 
 
     def mark_as_priority(self, request, queryset):
@@ -40,7 +40,7 @@ class EmailsDataAdmin(admin.ModelAdmin):
             credentials.reset_counter_if_needed()
 
             # Verificar el límite diario
-            if credentials.emails_sent_today >= 8:
+            if credentials.emails_sent_today > 376:
                 self.message_user(request, f"La cuenta {credentials.email_account} alcanzó su límite diario de 8 correos.", level='error')
                 return
 
@@ -75,7 +75,7 @@ class EmailsDataAdmin(admin.ModelAdmin):
 
         # Enviar correos a los registros seleccionados
         for email_data in queryset:
-            if credentials.emails_sent_today >= 400:
+            if credentials.emails_sent_today > 376:
                 self.message_user(request, f"Límite diario alcanzado para la cuenta {credentials.email_account}.", level='warning')
                 break
 
@@ -83,11 +83,9 @@ class EmailsDataAdmin(admin.ModelAdmin):
             recipient_email = email_data.email
 
             # Personalizar el mensaje y asunto
-            personalized_subject = f"{subject}, {recipient_name}!"
+            personalized_subject = f"{subject}"
             personalized_message = (
-                f"Hola {recipient_name},\n\n"
                 f"{message_template}\n\n"
-                f"Saludos cordiales,\n{name_account}"
             )
 
             # Construir el correo
