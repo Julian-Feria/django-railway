@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from datetime import timedelta
 import os
 from pathlib import Path
-import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,21 +80,21 @@ WSGI_APPLICATION = 'sendemail.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django_tenants.postgresql_backend',  
-#         'NAME': 'sendemail',  
-#         'USER': 'alumno', 
-#         'PASSWORD': '123456',  
-#         'HOST': 'localhost',  
-#         'PORT': '5432',  
-#     },
-# }
-
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',  
+        'NAME': 'sendemail',  
+        'USER': 'alumno', 
+        'PASSWORD': '123456',  
+        'HOST': 'localhost',  
+        'PORT': '5432',  
+    },
 }
+
+# DATABASES = {
+#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+
+# }
 
 
 SIMPLE_JWT = {
